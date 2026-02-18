@@ -13,12 +13,14 @@ const LineItemUnitPrice = ({
   style = "default",
   currencyCode,
 }: LineItemUnitPriceProps) => {
-  const { total, original_total } = item
+  const { total: _total, original_total: _original_total } = item
+  const total = _total ?? 0
+  const original_total = _original_total ?? 0
   const hasReducedPrice = total < original_total
 
-  const percentage_diff = Math.round(
+  const percentage_diff = original_total > 0 ? Math.round(
     ((original_total - total) / original_total) * 100
-  )
+  ) : 0
 
   return (
     <div className="flex flex-col text-ui-fg-muted justify-center h-full">
